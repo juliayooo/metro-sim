@@ -1,24 +1,21 @@
 /**********************************************************
 * Project 1: Metro Simulator
-* CS 15
+* Written for CS 15 Fall 2023
 * README
-* Author: Julia Yoo jyoo06
-* NOTE: PHASE 1 ANSWERS ARE INDICATED
+* Author: Julia Yoo
 *********************************************************/
 
 Compile/run:
      - Compile using
-          Phase 1: make 
-          Phase 2: make OR make MetroSim
+          make OR make MetroSim
      - run executable with
-          Phase 1: no executable. Test using unit_test
-          Phase 2: ./MetroSim stationsFile outputfile [commands]
+          ./MetroSim stationsFile outputfile [commands]
 
 
 
 Program Purpose:
      Implements the Metro Sim game/simulation. The program takes a file of 
-     stations, and an output stream, and with user inout either through standard
+     stations, and an output stream, and with user input either through standard
      input or a command file, can simulate passengers and a metro system being
      carried to and from stations on the train. 
 
