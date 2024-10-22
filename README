@@ -1,0 +1,133 @@
+/**********************************************************
+* Project 1: Metro Simulator
+* CS 15
+* README
+* Author: Julia Yoo jyoo06
+* NOTE: PHASE 1 ANSWERS ARE INDICATED
+*********************************************************/
+
+Compile/run:
+     - Compile using
+          Phase 1: make 
+          Phase 2: make OR make MetroSim
+     - run executable with
+          Phase 1: no executable. Test using unit_test
+          Phase 2: ./MetroSim stationsFile outputfile [commands]
+
+
+
+Program Purpose:
+     Implements the Metro Sim game/simulation. The program takes a file of 
+     stations, and an output stream, and with user inout either through standard
+     input or a command file, can simulate passengers and a metro system being
+     carried to and from stations on the train. 
+
+
+Acknowledgements: 
+     Information about std::lists and std::vector functionality found on 
+     cppreference.com
+     discussed general structure with Nehir Ozden. 
+     Structure refereneced from Splendor project CS11.
+     A TA, Eli helped with a print error. 
+     open_or_die functionality from Milod's File I/O lecture code.
+
+Files: 
+     Passenger.h, Passenger.cpp, PassengerQueue.h, PassengerQueue.cpp, README,
+     unit_test.h, MetroSim.h, MetroSim.cpp, main.cpp
+Testing Files:
+     test_commands.txt: my_output.txt, my_outfile.txt
+     edge_commands.txt: edge_output.txt, myoutfile1.txt
+     test_loopcommands.txt: my_loopoutput.txt loopoutfile.txt 
+     mystations: my_stationsloopoutput.txt mystationsloopoutfile.txt
+
+main.cpp:
+    takes user input, opens files, sends instreams and outstreams to the 
+    MetroSim constructor, and decides to play with a commands file or standard
+    input. 
+
+MetroSim.cpp:
+    Implements the MetroSim game framework, including construction, reading 
+    input, handling queries, and performing functionality associated with 
+    queries. Also writes to output. 
+
+MetroSim.h:
+     Declares components of the MetroSim class.
+
+Data Structures:
+     The program uses std::lists to implement and represent the TRAIN, as well
+     as the Passenger Queues. The list works much more functionally because of
+     the lists efficient ability to handle queues and element removal. The 
+     train is represented as a list of Passenger Queues, each corresponding to
+     a station. 
+     The downside of using the std::list is that element access is more 
+     inefficient, and there are a couple operations inside the program that 
+     require a lot of element access, including the print and move metro 
+     functions. This means they require making an interator each access and 
+     transversing each time, which is very inefficient. Otherwise, for queues
+     the dequeue and enqueue functions with list are very efficient. 
+
+     The stations are stored in a vector made up of Station struct 
+     objects, because of their ability to instantly access elements.
+     The stations will always be a fixed size, and access is most important to 
+     this program. Each object includes its own passengerQueue list to queue
+     and dequeue from.  
+
+Testing:
+     Phase 1: Created a test for the constructor with single and multiple 
+     passengers. 
+     Created a test for each PassengerQueue function, also with variation
+     in number of passengers. 
+     Using Unit_Test framework. 
+     Phase 2:
+     Started by implementing the filestream and print function first and 
+     foremost. This gave me the ability to visually verify that print outputs 
+     matched the reference print outputs and verify my filestream reading was
+     properly working. This ran pretty smoothly the first time, aside from the
+     fact that it took me a while to figure out that cout can be provided as an 
+     output stream to the PassengerQueue's print function. 
+     I ran into many bugs throughout the building of the query functions:
+     - remembering to implement the loop
+     - spaces and blank characters that effected diff 
+     - a lot of editing the calling of class functions that returned errors
+     The biggest bug that I ran into was my output diffing with the ref. prog.
+     A lot of my passengers were exiting in the wrong order, and I could not 
+     figure out why. I went through the code numerous times, and fixed a lot of
+     index-type issues, and tried  adding separate conditions which helped a 
+     bit. I ultimately had to switch my order of pickup/moving train.
+     A big issue was my print function not printing properly when given command
+     files.
+     I tried a lot of things, including switching the argc conditions and 
+     rewriting filestream code. Finally,
+     I realized the print call within my command-file loop was 
+     unincorporated. That was a quick fix and ultimately fixed the program.
+
+     I also tested with my own input files many times on top of the provided 
+     test files. The tests I created include an edge case involving passengers
+     being added to with their 'from' station being where that the train is at. 
+     (edge_commands.txt)
+     The program needed to be able to still pickup those passengers 
+     before leaving the station. 
+     I also created a test file
+     (test_loopcommands.txt) that tested to make sure the the train would
+     loop when it hit the last station, as well as a passenger boarding and 
+     exiting the train at the same station, as well as a passenger who travels
+     across the station loop. Within these tests, the train also often arrives
+     at the station with nobody to drop off or pickup. I also wanted to make 
+     sure my program could handle the user terminating the program before all
+     the passengers had been dropped off, and make sure that the output still
+     matched. Additionally, I created a tester stations file with my own input
+     stations and tested it with all the same command files, always diffing
+     with the reference program in the process. 
+
+Part that you found most difficult:
+
+Iterators had a real learning curve. Additionally, the print to output 
+functionality was the most tricky. It took MANY diff tests and editing to 
+actually make sure my pickup and deboarding was happening properly. 
+It generally also took me a minute to really understand outputs, streams, 
+standard outputs, etc. and how they operate and connect. 
+
+Time Spent: 
+     Phase 1: 4 hours 
+     Phase 2: 15 hours
+     Total: 19 hours
